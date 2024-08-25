@@ -1,0 +1,60 @@
+/*--------------------------------General--------------------------------------*/
+h1{
+    font-family: "chaloops", sans-serif;
+font-weight: 700;
+font-style: normal;
+}
+
+p{
+    font-family: "geller-text", serif;
+font-weight: 400;
+font-style: normal;
+}
+
+/*--------------------------------WeatherCodeClasses--------------------------------*/
+.clear{
+    background-color: rgb(127, 225, 255);
+    color: rgb(243, 243, 243);
+}
+
+.overcast{
+    background-color: rgb(204, 218, 223);
+}
+
+.fog{
+    background-color: rgb(181, 203, 209)
+}
+
+.drizzle{
+    background-color: rgb(109, 109, 109);
+}
+
+.freezingRain{
+    background-color: rgb(105, 124, 146);
+}
+
+.snow{
+    background-color: rgb(167, 208, 243);
+}
+
+.rain {
+    background-color: rgb(204, 218, 223);
+}
+
+.thunderstorm{
+    background-color: rgb(56, 56, 56);
+    color: rgb(243, 243, 243);;
+}
+
+.hell{
+    background-color: rgb(153, 0, 0);
+}
+
+
+
+
+
+
+#main{
+    height: 30vh;
+}
