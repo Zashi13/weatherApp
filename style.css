@@ -3,12 +3,19 @@ h1{
     font-family: "chaloops", sans-serif;
 font-weight: 700;
 font-style: normal;
+font-size: 2em;
+text-align: center;
+padding-top: 30px;
 }
 
 p{
     font-family: "geller-text", serif;
 font-weight: 400;
 font-style: normal;
+}
+
+#main{
+    height: 60vh;
 }
 
 /*--------------------------------WeatherCodeClasses--------------------------------*/
@@ -50,11 +57,65 @@ font-style: normal;
     background-color: rgb(153, 0, 0);
 }
 
-
-
-
-
-
-#main{
-    height: 30vh;
+/*-----------------------Clear Sky---------------------------------------*/
+#sun{
+    position: relative;
+    margin: 50px auto;
+    width: 150px;
+    height: 150px;
+    background-color: rgb(255, 237, 71);
+    border-radius: 50%;
 }
+
+.sunRay {
+    height: 20px;
+    width: 5px;
+    background-color: rgb(255, 237, 71);
+    position: absolute;
+  }
+
+  #sunRay0{
+    top: -30px;
+    left: 75px;
+  }
+
+  #sunRay1{
+    top: 0px;
+  right: 0px;
+  transform: rotate(45deg);
+  }
+
+  #sunRay2{
+    right: -25px;
+    top: 72px;
+    transform: rotate(90deg);
+  }
+
+  #sunRay3{
+    right: 0px;
+    top: 130px;
+    transform: rotate(-45deg);
+  }
+  
+  #sunRay4 {
+    bottom: -30px;
+    left: 75px;
+  }
+  
+  #sunRay5{
+    left: 0px;
+    top: 130px;
+    transform: rotate(-135deg);
+  }
+  
+  #sunRay6{
+    left: -25px;
+    top: 72px;
+    transform: rotate(90deg);
+  }
+  
+  #sunRay7 {
+    top: 0px;
+    left: 0px;
+    transform: rotate(135deg);
+  }

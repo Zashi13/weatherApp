@@ -9,10 +9,11 @@ function getWeatherAPI(){
 function displayweather(weatherCode){
     let main = document.getElementById("main");
     let mainTitle = document.getElementById("mainTitle");
-    switch(weatherCode){
+    switch(0){
         case 0:
             main.classList.add("clear");
             titleTextContent = "Perfectly clear sky!"
+            clear();
             break;
         case 1:
             main.classList.add("clear");
@@ -96,9 +97,11 @@ function displayweather(weatherCode){
         case 99:
             main.classList.add("thunderstorm");
             main.classList.add("thunderstormHail");
+            titleTextContent = "Take cover! It's hailing!";
             break;
         default:
             main.classList.add("hell");
+            titleTextContent = "Could not find weather - welcome to Hell!"
     }
 
     mainTitle.innerText = titleTextContent;
@@ -106,3 +109,17 @@ function displayweather(weatherCode){
 }
 
 getWeatherAPI().then(displayweather);
+
+function clear(){
+    let main = document.getElementById("main");
+    let sun = document.createElement("div");
+    sun.id = "sun";
+    main.appendChild(sun);
+    for (let i = 0; i <= 7; i++){
+        let sunRay = document.createElement("span");
+        sunRay.id = "sunRay" + i;
+        sunRay.className = "sunRay";
+        sun.appendChild(sunRay);
+    }
+
+}
