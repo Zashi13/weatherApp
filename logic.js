@@ -111,15 +111,32 @@ function displayweather(weatherCode){
 getWeatherAPI().then(displayweather);
 
 function clear(){
+    /*----Display the sun icon------*/
     let main = document.getElementById("main");
-    let sun = document.createElement("div");
+    let sun = document.createElement("img");
     sun.id = "sun";
+    sun.src = "assets/sunIcon.svg"
     main.appendChild(sun);
-    for (let i = 0; i <= 7; i++){
-        let sunRay = document.createElement("span");
-        sunRay.id = "sunRay" + i;
-        sunRay.className = "sunRay";
-        sun.appendChild(sunRay);
+    moveSun(sun);
+}
+
+function moveSun(objectToChange){
+    let todayDate = new Date().toDateString();
+    let todayTime = new Date().getHours();
+    let offsetLeft = 10;
+    let offsetTop = 100;
+    for(let i = 1; i <= 16; i++){
+        offsetLeft += 3.5;
+        if (i > 12){
+            offsetTop -= 4.7;
+        }
+        else{
+            offsetTop += 4.7;
+        }
     }
 
+    objectToChange.style.top = offsetTop + "%";
+    objectToChange.style.left = offsetLeft + "%";
+
+    /*+3.5 per hour*/ 
 }
