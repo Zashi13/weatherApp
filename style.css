@@ -60,9 +60,10 @@ font-style: normal;
 
 /*-----------------------Clear Sky---------------------------------------*/
 #sun{
-    position: absolute;
-    top: 20%; /*Range from 100 (below horizon) to 20% (midday)*/
-    left: 70%; /*Range from 10 (morning) to 70 (evening)*/
+    --offsetAmount: 0%;
+    position: relative;
     width: 130px;
     height: 130px;
+    offset-path: ellipse(45vw 100% at center);
+    offset-distance: var(--offsetAmount);
 }

@@ -1,15 +1,31 @@
+let sunriseMin;
+let sunsetMin;
+let sunriseHours;
+let sunsetHours;
+let totalSunHours;
+
 function getWeatherAPI(){
     return new Promise(function(resolve, reject){
         fetch('https://api.open-meteo.com/v1/forecast?latitude=46.6847&longitude=7.6911&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto')
-    .then(response => response.json())
-    .then(data => resolve(data.daily.weather_code[0]));
-})
+        .then(response => response.json())
+        .then(data => {
+            resolve({
+                weatherCode: data.daily.weather_code[0],
+                sunrise: data.daily.sunrise[0],
+                sunset: data.daily.sunset[0]
+            });
+        })
+        .catch(error => {
+            reject(error);
+        });
+    });
 }
+
 
 function displayweather(weatherCode){
     let main = document.getElementById("main");
     let mainTitle = document.getElementById("mainTitle");
-    switch(0){
+    switch(/*weatherCode*/0){
         case 0:
             main.classList.add("clear");
             titleTextContent = "Perfectly clear sky!"
@@ -108,7 +124,23 @@ function displayweather(weatherCode){
     
 }
 
-getWeatherAPI().then(displayweather);
+function splitData(data){
+    /*-------Calculate SunHours - Rise and Set time etc. ------*/
+    let sunriseClock = data.sunrise.slice(11);
+    let sunsetClock = data.sunset.slice(11);
+    calcSunHours(sunriseClock, sunsetClock);
+    return data.weatherCode;
+}
+
+function calcSunHours(sunriseClock, sunsetClock){
+    sunriseHours = sunriseClock.slice(0, 2);
+    sunriseMin = sunriseClock.slice(3);
+    sunsetHours = sunsetClock.slice(0, 2);
+    sunsetMin = sunsetClock.slice(3);
+    totalSunHours = (Number((sunsetHours - sunriseHours))) + Number(60 / (sunriseMin + sunsetMin));
+}
+
+getWeatherAPI().then(splitData).then(displayweather);
 
 function clear(){
     /*----Display the sun icon------*/
@@ -121,22 +153,14 @@ function clear(){
 }
 
 function moveSun(objectToChange){
+    let offset = 50;
+    let offsetAmount = 50 / totalSunHours;
     let todayDate = new Date().toDateString();
-    let todayTime = new Date().getHours();
-    let offsetLeft = 10;
-    let offsetTop = 100;
-    for(let i = 1; i <= 16; i++){
-        offsetLeft += 3.5;
-        if (i > 12){
-            offsetTop -= 4.7;
-        }
-        else{
-            offsetTop += 4.7;
-        }
-    }
-
-    objectToChange.style.top = offsetTop + "%";
-    objectToChange.style.left = offsetLeft + "%";
-
-    /*+3.5 per hour*/ 
+    let currentTime = new Date().getHours();
+    let pastSunTime = currentTime - sunriseHours;
+for (let i = 1; i < pastSunTime; i++){
+    offset += offsetAmount;
+}
+    objectToChange.style.setProperty('--offsetAmount', offset + "%");
+    objectToChange.style.transition = "all 3s";
 }
