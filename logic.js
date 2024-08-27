@@ -3,6 +3,9 @@ let sunsetMin;
 let sunriseHours;
 let sunsetHours;
 let totalSunHours;
+let todayDate = new Date().toDateString();
+let currentTime = new Date().getHours();
+let pastSunTime;
 
 function getWeatherAPI(){
     return new Promise(function(resolve, reject){
@@ -150,17 +153,28 @@ function clear(){
     sun.src = "assets/sunIcon.svg"
     main.appendChild(sun);
     moveSun(sun);
+    changeSkyColor("fff2bd", "eab589", "db7f7e", "776e99", main);
 }
 
 function moveSun(objectToChange){
     let offset = 50;
     let offsetAmount = 50 / totalSunHours;
-    let todayDate = new Date().toDateString();
-    let currentTime = new Date().getHours();
-    let pastSunTime = currentTime - sunriseHours;
+    pastSunTime = Number(currentTime - sunriseHours);
 for (let i = 1; i < pastSunTime; i++){
     offset += offsetAmount;
 }
     objectToChange.style.setProperty('--offsetAmount', offset + "%");
     objectToChange.style.transition = "all 3s";
 }
+
+function changeSkyColor(color1, color2, color3, color4, background){
+    if(pastSunTime > 2 || Number(totalSunHours - pastSunTime) < 2){
+    let gradientLocation;
+    if(pastSunTime < 2){
+        gradientLocation = "at bottom left";
+    }
+    if(Number(totalSunHours - pastSunTime) < 2){
+        gradientLocation = "at bottom right";
+    }
+    main.style.setProperty("background", "radial-gradient(circle "+gradientLocation+", #"+color1+" 0%, #"+color2+" 25%, #"+color3+" 52%, #"+color4+" 100%)", "important");  
+}};
