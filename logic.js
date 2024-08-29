@@ -28,7 +28,7 @@ function getWeatherAPI(){
 function displayweather(weatherCode){
     let main = document.getElementById("main");
     let mainTitle = document.getElementById("mainTitle");
-    switch(/*weatherCode*/0){
+    switch(weatherCode){
         case 0:
             main.classList.add("clear");
             titleTextContent = "Perfectly clear sky!"
@@ -141,34 +141,54 @@ function calcSunHours(sunriseClock, sunsetClock){
     sunsetHours = sunsetClock.slice(0, 2);
     sunsetMin = sunsetClock.slice(3);
     totalSunHours = (Number((sunsetHours - sunriseHours))) + Number(60 / (sunriseMin + sunsetMin));
+    pastSunTime = Number(currentTime - sunriseHours);
 }
-
-getWeatherAPI().then(splitData).then(displayweather);
 
 function clear(){
+    let isNight = changeSkyColor("fff2bd", "eab589", "db7f7e", "776e99");
+    /*----------Check if its night--------*/
+    if(isNight !== true){
     /*----Display the sun icon------*/
-    let main = document.getElementById("main");
-    let sun = document.createElement("img");
-    sun.id = "sun";
-    sun.src = "assets/sunIcon.svg"
-    main.appendChild(sun);
-    moveSun(sun);
-    changeSkyColor("fff2bd", "eab589", "db7f7e", "776e99", main);
+    createSun();
+}
 }
 
-function moveSun(objectToChange){
+function createSun(){
+    let main = document.getElementById("main");
+    let sun = document.createElement("img");
+    sun.id = "celestialBody";
+    sun.src = "assets/sunIcon.svg"
+    main.appendChild(sun);
+    moveCelestialBody(sun);
+}
+
+function createMoon(){
+    let main = document.getElementById("main");
+    let moon = document.createElement("img");
+    moon.id = "celestialBody";
+    moon.src = "assets/moonIcon.svg"
+    main.appendChild(moon);
+    moveCelestialBody(moon);
+}
+
+function moveCelestialBody(objectToChange){
     let offset = 50;
     let offsetAmount = 50 / totalSunHours;
-    pastSunTime = Number(currentTime - sunriseHours);
 for (let i = 1; i < pastSunTime; i++){
     offset += offsetAmount;
 }
     objectToChange.style.setProperty('--offsetAmount', offset + "%");
-    objectToChange.style.transition = "all 3s";
+    /*objectToChange.style.transition = "all 3s";*/
 }
 
-function changeSkyColor(color1, color2, color3, color4, background){
-    if(pastSunTime > 2 || Number(totalSunHours - pastSunTime) < 2){
+function changeSkyColor(color1, color2, color3, color4){
+    let diffToSunset = Number(totalSunHours - pastSunTime);
+    if(pastSunTime < 2 || diffToSunset < 2){
+        if(currentTime < sunriseHours || currentTime > sunsetHours){
+            nightTime();
+            return true;
+        }
+        else{
     let gradientLocation;
     if(pastSunTime < 2){
         gradientLocation = "at bottom left";
@@ -177,4 +197,18 @@ function changeSkyColor(color1, color2, color3, color4, background){
         gradientLocation = "at bottom right";
     }
     main.style.setProperty("background", "radial-gradient(circle "+gradientLocation+", #"+color1+" 0%, #"+color2+" 25%, #"+color3+" 52%, #"+color4+" 100%)", "important");  
-}};
+}}
+
+};
+
+function nightTime(){
+    main.classList.add("night");
+    for (let i = 1; i <= 3; i++){
+    let stars = document.createElement("div");
+    stars.id ="stars" + i;
+    main.appendChild(stars); 
+}
+createMoon();
+}
+
+getWeatherAPI().then(splitData).then(displayweather);
