@@ -160,10 +160,13 @@ function clear(){
 
 function createSun(){
     let main = document.getElementById("main");
+    let wrapper = document.createElement("wrapper");
+    wrapper.id="celestialWrapper";
     let sun = document.createElement("img");
     sun.id = "celestialBody";
     sun.src = "assets/sunIcon.svg"
-    main.appendChild(sun);
+    main.appendChild(wrapper);
+    wrapper.appendChild(sun);
     moveCelestialBody(sun);
 }
 
@@ -177,9 +180,9 @@ function createMoon(){
 }
 
 function moveCelestialBody(objectToChange){
-    let offset = 50;
-    let offsetAmount = 50 / totalSunHours;
-for (let i = 1; i < pastSunTime; i++){
+    let offset = 25;
+    let offsetAmount = 100 / 24;
+for (let i = 1; i < currentTime; i++){
     offset += offsetAmount;
 }
     objectToChange.style.setProperty('--offsetAmount', offset + "%");

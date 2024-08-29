@@ -23,6 +23,9 @@ font-style: normal;
     height: 80%;
 }
 
+/*----------------------------CelestialStuff-----------------------*/
+
+
 /*--------------------------------WeatherCodeClasses--------------------------------*/
 .clear{
     background-color: rgb(127, 225, 255);
@@ -72,7 +75,7 @@ font-style: normal;
     position: relative;
     width: 130px;
     height: 130px;
-    offset-path: ellipse(50% 50% at center);
+    offset-path: ellipse(50% 50% at bottom);
     offset-distance: var(--offsetAmount);
 }
 
