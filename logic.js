@@ -155,10 +155,13 @@ function clear(){
 
 function createSun(){
     let main = document.getElementById("main");
+    let wrapper = document.createElement("wrapper");
+    wrapper.id="celestialWrapper";
     let sun = document.createElement("img");
     sun.id = "celestialBody";
     sun.src = "assets/sunIcon.svg"
-    main.appendChild(sun);
+    main.appendChild(wrapper);
+    wrapper.appendChild(sun);
     moveCelestialBody(sun);
 }
 
