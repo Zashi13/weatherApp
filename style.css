@@ -77,6 +77,38 @@ font-style: normal;
 }
 
 
+/*-----------------------Clouds-------------------------------*/
+.cloud{
+    display: block;
+    height: 90px;
+    width: 100px;
+    position: relative;
+}
+
+#cloudSpeed1{
+    margin: 20px;
+    animation: cloudMovement 30s infinite linear;
+}
+
+#cloudSpeed2{
+    margin: 30px;
+    animation: cloudMovement 35s infinite linear;
+}
+
+#cloudSpeed3{
+    margin: 50px;
+    animation: cloudMovement 40s infinite linear;
+}
+
+@keyframes cloudMovement {
+   from{
+    transform: translateX(0px);
+   }
+   to{
+    transform: translateX(100vw);
+   }
+}
+
 /*---------------------------Stars-------------------------------------*/
 #stars1 {
     width: 1px;
