@@ -28,7 +28,7 @@ function getWeatherAPI(){
 function displayweather(weatherCode){
     let main = document.getElementById("main");
     let mainTitle = document.getElementById("mainTitle");
-    switch(weatherCode){
+    switch(0){
         case 0:
             main.classList.add("clear");
             titleTextContent = "Perfectly clear sky!"
@@ -172,9 +172,9 @@ function createMoon(){
 }
 
 function moveCelestialBody(objectToChange){
-    let offset = 50;
-    let offsetAmount = 50 / totalSunHours;
-for (let i = 1; i < pastSunTime; i++){
+    let offset = 25;
+    let offsetAmount = 100 / 24;
+for (let i = 1; i < currentTime; i++){
     offset += offsetAmount;
 }
     objectToChange.style.setProperty('--offsetAmount', offset + "%");
