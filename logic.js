@@ -5,7 +5,7 @@ let sunsetHours;
 let totalSunHours;
 let todayDate = new Date().toDateString();
 let currentTime = new Date().getHours();
-currentTime = 20;
+currentTime = 12;
 let pastSunTime;
 
 function getWeatherAPI(){
@@ -29,7 +29,7 @@ function getWeatherAPI(){
 function displayweather(weatherCode){
     let main = document.getElementById("main");
     let mainTitle = document.getElementById("mainTitle");
-    switch(2){
+    switch(1){
         case 0:
             main.classList.add("clear");
             titleTextContent = "Perfectly clear sky!"
@@ -222,18 +222,32 @@ createMoon();
 function createCloud(min, max){
     const randomNumberInRange = (min, max) => Math.random() * (max - min) + min;
 let numberOfClouds = Math.round(randomNumberInRange(min, max));
+let randomDelay = Math.round(randomNumberInRange(1, 5000));
 let main = document.getElementById("main");
 
 for(let i = 1; i <= numberOfClouds; i++){
-    let cloud = document.createElement("img");
+    setTimeout(() =>{
+        let cloud = document.createElement("img");
     let randomNum = Math.round(randomNumberInRange(1, 2));
     cloud.id = "cloudSpeed" + randomNum;
     cloud.className = "cloud";
-    cloud.style.transform = "translateX(" + Math.round(randomNumberInRange(1, 100)) + "vw)";
-    cloud.src = "assets/cloudOne.svg"
+    let cloudLook = Math.round(randomNumberInRange(1, 5));
+    switch (cloudLook){
+        case 1:
+            cloud.src = "assets/cloudOne.svg"
+            break;
+        case 2:
+            cloud.src = "assets/cloudTwo.svg"
+            break;
+        case 3:
+            cloud.src = "assets/cloudBig.svg"
+            break;
+        case 4:
+            cloud.src = "assets/cloudBigTwo.svg"
+            break;
+          }
     main.appendChild(cloud);
-    
-
+    }, randomDelay);
 }
 
 
