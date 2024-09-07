@@ -5,7 +5,6 @@ let sunsetHours;
 let totalSunHours;
 let todayDate = new Date().toDateString();
 let currentTime = new Date().getHours();
-currentTime = 12;
 let pastSunTime;
 
 function getWeatherAPI(){
@@ -31,7 +30,7 @@ function displayweather(weatherCode){
     let mainTitle = document.getElementById("mainTitle");
     let bgm = document.getElementById("bgm");
     let audioSrc;
-    switch(2){
+    switch(1){
         case 0:
             main.classList.add("clear");
             titleTextContent = "Perfectly clear sky!"
@@ -267,7 +266,7 @@ for(let i = 1; i <= numberOfClouds; i++){
     main.appendChild(cloud);
     /*------------CreateRandomPosition-------------*/
     let top = Math.round(randomNumberInRange(0, 90));
-    let left = Math.round(randomNumberInRange(0, 90));
+    let left = Math.round(randomNumberInRange(-50, 90));
     console.log(cloud);
     cloud.style.top = top + "%";
     cloud.style.left = left + "%";
