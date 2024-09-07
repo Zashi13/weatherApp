@@ -69,7 +69,7 @@ font-style: normal;
     background: radial-gradient(circle at bottom center, rgba(45,49,79,1) 0%, rgba(50,58,93,1) 48%, rgba(7,0,33,1) 100%);
 }
 
-/*-----------------------Clear Sky---------------------------------------*/
+/*-----------------------ClearSky---------------------------------------*/
 #celestialBody{
     --offsetAmount: 0%;
     position: relative;
@@ -85,22 +85,19 @@ font-style: normal;
     display: block;
     height: 90px;
     width: 100px;
-    position: relative;
+    position: absolute;
 }
 
-#cloudSpeed1{
-    margin: 20px;
-    animation: cloudMovement 30s infinite linear;
+.cloudSpeed1{
+    animation: cloudMovement 50s infinite linear;
 }
 
-#cloudSpeed2{
-    margin: 30px;
-    animation: cloudMovement 35s infinite linear;
+.cloudSpeed2{
+    animation: cloudMovement 60s infinite linear;
 }
 
-#cloudSpeed3{
-    margin: 50px;
-    animation: cloudMovement 40s infinite linear;
+.cloudSpeed3{
+    animation: cloudMovement 80s infinite linear;
 }
 
 @keyframes cloudMovement {
@@ -111,6 +108,31 @@ font-style: normal;
     transform: translateX(100vw);
    }
 }
+
+#cloud1{
+}
+
+#cloud2{
+}
+
+#cloud3{
+}
+
+#cloud4{
+}
+
+#cloud5{
+}
+
+#cloud6{
+}
+
+#cloud7{
+}
+
+#cloud8{
+}
+
 
 /*---------------------------Stars-------------------------------------*/
 #stars1 {

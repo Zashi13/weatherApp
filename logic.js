@@ -239,11 +239,14 @@ let randomDelay = Math.round(randomNumberInRange(1, 5000));
 let main = document.getElementById("main");
 
 for(let i = 1; i <= numberOfClouds; i++){
-    setTimeout(() =>{
-        let cloud = document.createElement("img");
-    let randomNum = Math.round(randomNumberInRange(1, 2));
-    cloud.id = "cloudSpeed" + randomNum;
-    cloud.className = "cloud";
+    /*------------Creat Cloud-----------*/
+    let cloud = document.createElement("img");
+    cloud.classList.add("cloud");
+    cloud.id = "cloud" + i;
+    /*------------CreateRandomCloudSpeed-------------*/
+    let randomNum = Math.round(randomNumberInRange(1, 3));
+    cloud.classList.add("cloudSpeed" + randomNum);
+    /*------------CreateRandomCloudLook--------------*/
     let cloudLook = Math.round(randomNumberInRange(1, 5));
     switch (cloudLook){
         case 1:
@@ -258,9 +261,16 @@ for(let i = 1; i <= numberOfClouds; i++){
         case 4:
             cloud.src = "assets/cloudBigTwo.svg"
             break;
+        default:
+            cloud.src = "assets/cloudOne.svg"
           }
     main.appendChild(cloud);
-    }, randomDelay);
+    /*------------CreateRandomPosition-------------*/
+    let top = Math.round(randomNumberInRange(0, 90));
+    let left = Math.round(randomNumberInRange(0, 90));
+    console.log(cloud);
+    cloud.style.top = top + "%";
+    cloud.style.left = left + "%";
 }
 
 
