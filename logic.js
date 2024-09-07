@@ -29,11 +29,14 @@ function getWeatherAPI(){
 function displayweather(weatherCode){
     let main = document.getElementById("main");
     let mainTitle = document.getElementById("mainTitle");
-    switch(1){
+    let bgm = document.getElementById("bgm");
+    let audioSrc;
+    switch(2){
         case 0:
             main.classList.add("clear");
             titleTextContent = "Perfectly clear sky!"
             clear();
+            audioSrc = "clear";
             break;
         case 1:
             main.classList.add("clear");
@@ -41,6 +44,7 @@ function displayweather(weatherCode){
             titleTextContent = "There are some clouds"
             clear();
             createCloud(3, 5);
+            audioSrc = "clear";
             break;
         case 2:
             main.classList.add("clear");
@@ -48,10 +52,12 @@ function displayweather(weatherCode){
             titleTextContent = "It's a bit cloudy"
             clear();
             createCloud(5, 8);
+            audioSrc = "clear";
             break;
         case 3:
             main.classList.add("overcast");
             titleTextContent = "It's overcast"
+            audioSrc = "overcast";
             break;
         case 45:
         case 48:
@@ -63,12 +69,14 @@ function displayweather(weatherCode){
         case 56:
             main.classList.add("drizzle");
             titleTextContent = "The worst kind of rain"
+            audioSrc = "drizzle";
             break;
         case 55:
         case 57:
             main.classList.add("drizzle");
             main.classList.add("drizzleHeavy");
-            titleTextContent = "The worst kidn of rain - and a lot of it"
+            titleTextContent = "The worst kind of rain - and a lot of it"
+            audioSrc = "drizzle";
             break;
         case 66:
             main.classList.add("freezingRain");
@@ -102,20 +110,24 @@ function displayweather(weatherCode){
         case 80:
             main.classList.add("rain");
             titleTextContent = "It's a little rainy today";
+            audioSrc = "rain";
             break;
         case 81:
             main.classList.add("rain");
             main.classList.add("rainModerate");
             titleTextContent = "It's raining";
+            audioSrc = "rain";
             break;
         case 82:
             main.classList.add("rain");
             main.classList.add("rainHeavy");
             titleTextContent = "It's raining A LOT!";
+            audioSrc = "rain";
             break;
         case 95:
             main.classList.add("thunderstorm");
             titleTextContent = "There is a Thunderstorm happening!";
+            audioSrc = "thunder";
             break;
         case 96:
         case 99:
@@ -129,6 +141,7 @@ function displayweather(weatherCode){
     }
 
     mainTitle.innerText = titleTextContent;
+    bgm.src="assets/aud/" + audioSrc + ".mp3";
     
 }
 
