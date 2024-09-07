@@ -9,7 +9,7 @@ let pastSunTime;
 
 function getWeatherAPI(){
     return new Promise(function(resolve, reject){
-        fetch('https://api.open-meteo.com/v1/forecast?latitude=46.6847&longitude=7.6911&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto')
+        fetch('https://api.open-meteo.com/v1/forecast?latitude=61.7445&longitude=17.0260&daily=weather_code,sunrise,sunset&timezone=auto')
         .then(response => response.json())
         .then(data => {
             resolve({
@@ -30,7 +30,7 @@ function displayweather(weatherCode){
     let mainTitle = document.getElementById("mainTitle");
     let bgm = document.getElementById("bgm");
     let audioSrc;
-    switch(1){
+    switch(weatherCode){
         case 0:
             main.classList.add("clear");
             titleTextContent = "Perfectly clear sky!"
