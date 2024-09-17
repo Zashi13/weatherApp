@@ -21,11 +21,14 @@
     </footer>
 
     <script>
+        let width = screen.width; 
+        let height = screen.height;
         $(document).on('mousemove', function(e) {
-  var xPos = e.pageX;
-  var yPos = e.pageY;
-  var xposPercent = Number(xPos / 50);
-  var yposPercent = Number(yPos / 50);
+  var xPos = e.pageX / width -0.5;
+  var yPos = e.pageY / height - 0.5;
+  console.log(xPos, yPos);
+  var xposPercent = Number(xPos * 10);
+  var yposPercent = Number(yPos * 10);
   $('#sunface').css({
     'top': yposPercent,
     'left': xposPercent
