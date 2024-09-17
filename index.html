@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://use.typekit.net/htc3aak.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,4 +19,17 @@
     <footer>
         <p>Copyright: Zamir Loshi - 2024</p>
     </footer>
+
+    <script>
+        $(document).on('mousemove', function(e) {
+  var xPos = e.pageX;
+  var yPos = e.pageY;
+  var xposPercent = Number(xPos / 50);
+  var yposPercent = Number(yPos / 50);
+  $('#sunface').css({
+    'top': yposPercent,
+    'left': xposPercent
+  });
+});
+    </script>
 </body>

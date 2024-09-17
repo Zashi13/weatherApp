@@ -30,7 +30,7 @@ function displayweather(weatherCode){
     let mainTitle = document.getElementById("mainTitle");
     let bgm = document.getElementById("bgm");
     let audioSrc;
-    switch(weatherCode){
+    switch(1){
         case 0:
             main.classList.add("clear");
             titleTextContent = "Perfectly clear sky!"
@@ -171,15 +171,27 @@ function clear(){
 }
 
 function createSun(){
-    let main = document.getElementById("main");
-    let wrapper = document.createElement("wrapper");
+    let main = document.getElementById("main"); //Find the element that cntains the sky
+    let wrapper = document.createElement("wrapper"); //what des this do?
     wrapper.id="celestialWrapper";
-    let sun = document.createElement("img");
-    sun.id = "celestialBody";
-    sun.src = "assets/sunIcon.svg"
+
+      /*creating the sun containing a face*/
+    let sunwrapper = document.createElement("div"); //contains the sun svg and face svg 
+    sunwrapper.id = "celestialBody"; //set ID for sunWrapper
+
+    let sun = document.createElement("img"); //create the sun element
+    sun.src = "assets/sunIcon.svg" //assign sun-svg
+    sun.id ="sun";
+    let face = document.createElement("img"); //create the face element
+    face.id="sunface"; //assign id to identify face element
+    face.src="assets/face.svg" // assign face svg
+
+    sunwrapper.appendChild(sun); //assign both images to the sunwrapper
+    sunwrapper.appendChild(face);
+
+    wrapper.appendChild(sunwrapper);
     main.appendChild(wrapper);
-    wrapper.appendChild(sun);
-    moveCelestialBody(sun);
+    moveCelestialBody(sunwrapper);
 }
 
 function createMoon(){
