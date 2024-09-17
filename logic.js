@@ -30,7 +30,7 @@ function displayweather(weatherCode){
     let mainTitle = document.getElementById("mainTitle");
     let bgm = document.getElementById("bgm");
     let audioSrc;
-    switch(1){
+    switch(2){
         case 0:
             main.classList.add("clear");
             titleTextContent = "Perfectly clear sky!"
