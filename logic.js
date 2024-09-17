@@ -6,10 +6,12 @@ let totalSunHours;
 let todayDate = new Date().toDateString();
 let currentTime = new Date().getHours();
 let pastSunTime;
+let defaultLat = 61.7445;
+let defaultLong = 17.0260;
 
-function getWeatherAPI(){
+function getWeatherAPI(lat, long){
     return new Promise(function(resolve, reject){
-        fetch('https://api.open-meteo.com/v1/forecast?latitude=61.7445&longitude=17.0260&daily=weather_code,sunrise,sunset&timezone=auto')
+        fetch("https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+long+"&daily=weather_code,sunrise,sunset&timezone=auto")
         .then(response => response.json())
         .then(data => {
             resolve({
@@ -275,4 +277,11 @@ for(let i = 1; i <= numberOfClouds; i++){
 
 }
 
-getWeatherAPI().then(splitData).then(displayweather);
+function changeLocation(){
+    let lat = document.getElementById("lat").value;
+    let long = document.getElementById("long").value;
+
+    getWeatherAPI(lat, long).then(splitData).then(displayweather);
+}
+
+getWeatherAPI(defaultLat, defaultLong).then(splitData).then(displayweather);
