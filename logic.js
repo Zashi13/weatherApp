@@ -234,10 +234,11 @@ createMoon();
 function createCloud(min, max){
     const randomNumberInRange = (min, max) => Math.random() * (max - min) + min;
 let numberOfClouds = Math.round(randomNumberInRange(min, max));
-let randomDelay = Math.round(randomNumberInRange(1, 5000));
+
 let main = document.getElementById("main");
 
 for(let i = 1; i <= numberOfClouds; i++){
+    let randomDelay = Math.round(randomNumberInRange(1, 8000));
     /*------------Creat Cloud-----------*/
     let cloud = document.createElement("img");
     cloud.classList.add("cloud");
@@ -263,13 +264,14 @@ for(let i = 1; i <= numberOfClouds; i++){
         default:
             cloud.src = "assets/cloudOne.svg"
           }
+          cloud.style.setProperty('--randomDelay', Number(randomDelay / 1000) + "s");
     main.appendChild(cloud);
     /*------------CreateRandomPosition-------------*/
-    let top = Math.round(randomNumberInRange(0, 90));
-    let left = Math.round(randomNumberInRange(-50, 90));
-    console.log(cloud);
+    let top = Math.round(randomNumberInRange(10, 70));
     cloud.style.top = top + "%";
-    cloud.style.left = left + "%";
+
+
+    /*-------------SetRandomDelay----------*/
 }
 
 
