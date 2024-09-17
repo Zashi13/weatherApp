@@ -105,26 +105,30 @@ font-style: normal;
     height: 90px;
     width: 100px;
     position: absolute;
+    transform: translateX(-10vw);
 }
 
 .cloudSpeed1{
-    animation: cloudMovement 50s infinite linear;
+    --randomDelay: 0s;
+    animation: cloudMovement 50s var(--randomDelay) infinite linear;
 }
 
 .cloudSpeed2{
-    animation: cloudMovement 60s infinite linear;
+    --randomDelay: 0s;
+    animation: cloudMovement 80s var(--randomDelay) infinite linear;
 }
 
 .cloudSpeed3{
-    animation: cloudMovement 80s infinite linear;
+    --randomDelay: 0s;
+    animation: cloudMovement 100s var(--randomDelay) infinite linear;
 }
 
 @keyframes cloudMovement {
    from{
-    transform: translateX(0px);
+    transform: translateX(-10vw);
    }
    to{
-    transform: translateX(100vw);
+    transform: translateX(110vw);
    }
 }
 
