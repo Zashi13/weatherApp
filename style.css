@@ -26,7 +26,10 @@ font-style: normal;
 /*----------------------------CelestialStuff-----------------------*/
 #celestialBody{
     --offsetAmount: 0%;
-    position: relative;
+    display: flex;
+    justify-content: center; /* Horizontal centering */
+    align-items: center; /* Vertical centering */
+    height: 100vh; /* Ensure parent has height to allow centering */
     width: 130px;
     height: 130px;
     offset-path: ellipse(50% 50% at bottom);
