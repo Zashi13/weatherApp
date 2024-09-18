@@ -109,30 +109,37 @@ font-style: normal;
    }
 }
 
-#cloud1{
+/*---------------------Form----------------*/
+form{
+    width: 70vw;
+    border: #33180c 2px solid;
+    border-radius: 3px;
+    padding: 30px;
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
 }
 
-#cloud2{
+button{
+    border: black solid 2px;
+    background-color: white;
+    padding: 10px;
 }
 
-#cloud3{
+button:hover{
+    background-color: black;
+    color: white;
 }
 
-#cloud4{
+input{
+    border: black solid 2px;
+    background-color: white;
+    padding: 10px;
 }
 
-#cloud5{
+::placeholder{
+    color: darkgray;
 }
-
-#cloud6{
-}
-
-#cloud7{
-}
-
-#cloud8{
-}
-
 
 /*---------------------------Stars-------------------------------------*/
 #stars1 {
