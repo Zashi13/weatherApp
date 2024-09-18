@@ -26,6 +26,25 @@ function getWeatherAPI(lat, long){
     });
 }
 
+getCities();
+
+function getCities(){
+    return new Promise(function(resolve, reject){
+        fetch("assets/geo/cities500.json")
+        .then(response => response.json())
+        .then(data => {
+            // Assuming each object in 'data' has a 'name' property
+            const cityName = "Spiez"; // Replace with the city you are looking for
+            const city = data.find(item => item.name === cityName);
+            resolve(city); // This will resolve the specific city object
+            console.log(city);
+        })
+        .catch(error => {
+            reject(error);
+        });
+    });
+}
+
 
 function displayweather(weatherCode){
     let main = document.getElementById("main");
