@@ -14,10 +14,27 @@
         <h1 id="mainTitle"></h1>
     </section>
     <form id="locationSelect">
-        <input type="text" placeholder="NewYork">
-        <input type="text" id ="lat" placeholder="40.705">
-        <input type="text" id="long" placeholder="73.975">
-        <button type="button" onclick="changeLocation()">Change Location</button>
+        <fieldset>
+            <label for="location">Select Location</label>
+            <input type="text" id="location" placeholder="NewYork">
+        </fieldset>
+        <fieldset>
+            <label for="lat">Latitude</label>
+            <input type="text" id ="lat" placeholder="40.705">
+        </fieldset>
+        <fieldset>
+            <label for="long">Longitude</label>
+            <input type="text" id="long" placeholder="73.975">
+        </fieldset>
+        <fieldset>
+            <label id="hidden" for="empty">Send</label> 
+            <button type="button" onclick="changeLocation()">Change Location</button>
+        </fieldset>
+       
+        
+       
+       
+    </fieldset>
     </form>
     <audio id="bgm" autoplay loop></audio>
 
