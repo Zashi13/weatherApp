@@ -8,6 +8,7 @@ let currentTime = new Date().getHours();
 let pastSunTime;
 let defaultLat = 61.7445;
 let defaultLong = 17.0260;
+let selectedCity = "Paris";
 
 function getWeatherAPI(lat, long){
     return new Promise(function(resolve, reject){
@@ -26,18 +27,18 @@ function getWeatherAPI(lat, long){
     });
 }
 
-getCities();
+getCities().then(getWeatherAPI).then(splitData).then(displayweather);
 
 function getCities(){
     return new Promise(function(resolve, reject){
         fetch("assets/geo/cities500.json")
         .then(response => response.json())
         .then(data => {
-            // Assuming each object in 'data' has a 'name' property
-            const cityName = "Spiez"; // Replace with the city you are looking for
-            const city = data.find(item => item.name === cityName);
-            resolve(city); // This will resolve the specific city object
-            console.log(city);
+            const city = data.find(item => item.name === selectedCity);
+            resolve({
+                lat: city.lat,
+                long: city.lon
+            }); console.log("returning" + lat)
         })
         .catch(error => {
             reject(error);
@@ -51,6 +52,7 @@ function displayweather(weatherCode){
     let mainTitle = document.getElementById("mainTitle");
     let bgm = document.getElementById("bgm");
     let audioSrc;
+    console.log(weatherCode);
     switch(weatherCode){
         case 0:
             main.classList.add("clear");
@@ -106,6 +108,7 @@ function displayweather(weatherCode){
             main.classList.add("freezingRain");
             main.classList.add("freezingRainHeavy");
             titleTextContent = "That freezing rain sucks..."
+            break;
         case 71:
         case 85:
             main.classList.add("snow");
