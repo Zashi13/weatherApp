@@ -8,7 +8,7 @@ let currentTime = new Date().getHours();
 let pastSunTime;
 let defaultLat = 61.7445;
 let defaultLong = 17.0260;
-let selectedCity = "Paris";
+let selectedCity = "Lausanne";
 
 function getWeatherAPI(lat, long){
     return new Promise(function(resolve, reject){
@@ -27,7 +27,7 @@ function getWeatherAPI(lat, long){
     });
 }
 
-getCities().then(getWeatherAPI).then(splitData).then(displayweather);
+getCities().then(autofill)
 
 function getCities(){
     return new Promise(function(resolve, reject){
@@ -36,14 +36,23 @@ function getCities(){
         .then(data => {
             const city = data.find(item => item.name === selectedCity);
             resolve({
-                lat: city.lat,
-                long: city.lon
-            }); console.log("returning" + lat)
+             city
+            });
         })
         .catch(error => {
             reject(error);
         });
     });
+}
+
+function autofill(city){
+    let latitude = city.city.lat;
+    let longitude = city.city.lon;
+    console.log(latitude, longitude);
+    let inputLat = document.getElementById("lat");
+    let inputLong = document.getElementById("long");
+    inputLat.value = latitude;
+    inputLong.value = longitude;
 }
 
 
@@ -52,7 +61,6 @@ function displayweather(weatherCode){
     let mainTitle = document.getElementById("mainTitle");
     let bgm = document.getElementById("bgm");
     let audioSrc;
-    console.log(weatherCode);
     switch(weatherCode){
         case 0:
             main.classList.add("clear");
@@ -291,7 +299,6 @@ for(let i = 1; i <= numberOfClouds; i++){
     /*------------CreateRandomPosition-------------*/
     let top = Math.round(randomNumberInRange(0, 90));
     let left = Math.round(randomNumberInRange(-50, 90));
-    console.log(cloud);
     cloud.style.top = top + "%";
     cloud.style.left = left + "%";
 }
