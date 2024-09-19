@@ -6,10 +6,12 @@ let totalSunHours;
 let todayDate = new Date().toDateString();
 let currentTime = new Date().getHours();
 let pastSunTime;
+let defaultLat = 61.7445;
+let defaultLong = 17.0260;
 
-function getWeatherAPI(){
+function getWeatherAPI(lat, long){
     return new Promise(function(resolve, reject){
-        fetch('https://api.open-meteo.com/v1/forecast?latitude=61.7445&longitude=17.0260&daily=weather_code,sunrise,sunset&timezone=auto')
+        fetch("https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+long+"&daily=weather_code,sunrise,sunset&timezone=auto")
         .then(response => response.json())
         .then(data => {
             resolve({
@@ -24,21 +26,57 @@ function getWeatherAPI(){
     });
 }
 
+function findCityOptions(){
+
+}
+
+function getCities(){
+    let selectedCity = document.getElementById("location").value;
+    return new Promise(function(resolve, reject){
+        fetch("assets/geo/cities500.json")
+        .then(response => response.json())
+        .then(data => {
+            const city = data.find(item => item.name === selectedCity);
+            resolve({
+             city
+            });
+        })
+        .catch(error => {
+            reject(error);
+        });
+    });
+}
+
+function autofill(city){
+    let latitude = city.city.lat;
+    let longitude = city.city.lon;
+    console.log(latitude, longitude);
+    let inputLat = document.getElementById("lat");
+    let inputLong = document.getElementById("long");
+    inputLat.value = latitude;
+    inputLong.value = longitude;
+}
+
 
 function displayweather(weatherCode){
     let main = document.getElementById("main");
-    let mainTitle = document.getElementById("mainTitle");
+    while (main.firstChild) {
+        main.removeChild(main.lastChild);
+      }
+    let mainTitle = document.createElement("h1");
+    mainTitle.id = "mainTitle";
+    main.appendChild(mainTitle);
     let bgm = document.getElementById("bgm");
     let audioSrc;
-    switch(2){
+    switch(weatherCode){
         case 0:
-            main.classList.add("clear");
+            main.className= "clear";
             titleTextContent = "Perfectly clear sky!"
             clear();
             audioSrc = "clear";
             break;
         case 1:
-            main.classList.add("clear");
+            main.className = "clear";
             main.classList.add("mainlyClear");
             titleTextContent = "There are some clouds"
             clear();
@@ -46,7 +84,7 @@ function displayweather(weatherCode){
             audioSrc = "clear";
             break;
         case 2:
-            main.classList.add("clear");
+            main.className = "clear";
             main.classList.add("partlyCloudy");
             titleTextContent = "It's a bit cloudy"
             clear();
@@ -54,88 +92,89 @@ function displayweather(weatherCode){
             audioSrc = "clear";
             break;
         case 3:
-            main.classList.add("overcast");
+            main.className="overcast";
             titleTextContent = "It's overcast"
             audioSrc = "overcast";
             break;
         case 45:
         case 48:
-            main.classList.add("fog");
+            main.className="fog";
             titleTextContent = "Can't see with all that fog"
             break;
         case 51:
         case 53:
         case 56:
-            main.classList.add("drizzle");
+            main.className="drizzle";
             titleTextContent = "The worst kind of rain"
             audioSrc = "drizzle";
             break;
         case 55:
         case 57:
-            main.classList.add("drizzle");
+           main.className="drizzle";
             main.classList.add("drizzleHeavy");
             titleTextContent = "The worst kind of rain - and a lot of it"
             audioSrc = "drizzle";
             break;
         case 66:
-            main.classList.add("freezingRain");
+           main.className="freezingRain";
             titleTextContent = "So thats freezing rain"
             break;
         case 67:
-            main.classList.add("freezingRain");
+            main.className="freezingRain";
             main.classList.add("freezingRainHeavy");
             titleTextContent = "That freezing rain sucks..."
+            break;
         case 71:
         case 85:
-            main.classList.add("snow");
+           main.className="snow";
             titleTextContent = "At least there are some flakes"
             break;
         case 73:
-            main.classList.add("snow");
+            main.className="snow";
             main.classList.add("snowModerate");
             titleTextContent = "It's snowing";
             break;
         case 75:
         case 86:
-            main.classList.add("snow");
+            main.className="snow";
             main.classList.add("snowHeavy");
             titleTextContent = "Look at all that snow!";
             break;
         case 77:
-            main.classList.add("snow");
+            main.className="snow";
             main.classList.add("snowGrain");
             titleTextContent = "Why is the snow so weird?";
             break;
         case 80:
-            main.classList.add("rain");
+            main.className="rain";
             titleTextContent = "It's a little rainy today";
             audioSrc = "rain";
             break;
         case 81:
-            main.classList.add("rain");
+            main.className="rain";
             main.classList.add("rainModerate");
             titleTextContent = "It's raining";
             audioSrc = "rain";
             break;
         case 82:
-            main.classList.add("rain");
+            main.className="rain";
             main.classList.add("rainHeavy");
             titleTextContent = "It's raining A LOT!";
             audioSrc = "rain";
             break;
         case 95:
-            main.classList.add("thunderstorm");
+            main.className="thunderstorm";
             titleTextContent = "There is a Thunderstorm happening!";
             audioSrc = "thunder";
             break;
         case 96:
         case 99:
-            main.classList.add("thunderstorm");
+            main.className="thunderstorm";
             main.classList.add("thunderstormHail");
             titleTextContent = "Take cover! It's hailing!";
             break;
         default:
-            main.classList.add("hell");
+            main.className="hell";
             titleTextContent = "Could not find weather - welcome to Hell!"
     }
 
@@ -250,7 +289,7 @@ let numberOfClouds = Math.round(randomNumberInRange(min, max));
 let main = document.getElementById("main");
 
 for(let i = 1; i <= numberOfClouds; i++){
-    let randomDelay = Math.round(randomNumberInRange(1, 8000));
+    let randomDelay = Math.round(randomNumberInRange(1, 12000));
     /*------------Creat Cloud-----------*/
     let cloud = document.createElement("img");
     cloud.classList.add("cloud");
@@ -289,4 +328,16 @@ for(let i = 1; i <= numberOfClouds; i++){
 
 }
 
-getWeatherAPI().then(splitData).then(displayweather);
+function changeLocation(){
+    let latUnshort = document.getElementById("lat").value;
+    let longUnshort = document.getElementById("long").value;
+
+    let lat = latUnshort.slice(0,6);
+    let long = longUnshort.slice(0,6);
+
+    console.log(lat, long);
+
+    getWeatherAPI(lat, long).then(splitData).then(displayweather);
+}
+
+getWeatherAPI(defaultLat, defaultLong).then(splitData).then(displayweather);

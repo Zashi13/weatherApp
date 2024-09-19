@@ -16,7 +16,12 @@ font-style: normal;
 
 #main{
     height: 60vh;
+    width: 80vw;
+    margin: auto;
+    border: black 2px solid;
+    box-shadow: black 5px;
     position: relative;
+    overflow-x: hidden;
 }
 
 .spacer{
@@ -130,6 +135,54 @@ font-style: normal;
    to{
     transform: translateX(110vw);
    }
+}
+
+/*---------------------Form----------------*/
+form{
+    width: 70vw;
+    border: #33180c 2px solid;
+    border-radius: 3px;
+    padding: 30px;
+    margin: auto;
+    margin-top: 5vh;
+    font-family: "elza", sans-serif;
+font-weight: 500;
+font-style: normal;
+display: flex;
+justify-content: space-around;
+align-items: center;
+}
+
+fieldset{
+    display: flex;
+    flex-direction: column;
+    border: none;
+    width: 25%;
+}
+
+#hidden{
+    visibility: hidden;
+}
+
+button{
+    border: black solid 2px;
+    background-color: white;
+    padding: 10px;
+}
+
+button:hover{
+    background-color: black;
+    color: white;
+}
+
+input{
+    border: black solid 2px;
+    background-color: white;
+    padding: 10px;
+}
+
+::placeholder{
+    color: darkgray;
 }
 
 /*---------------------------Stars-------------------------------------*/
