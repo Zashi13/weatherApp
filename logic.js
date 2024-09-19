@@ -314,8 +314,13 @@ for(let i = 1; i <= numberOfClouds; i++){
 }
 
 function changeLocation(){
-    let lat = document.getElementById("lat").value;
-    let long = document.getElementById("long").value;
+    let latUnshort = document.getElementById("lat").value;
+    let longUnshort = document.getElementById("long").value;
+
+    let lat = latUnshort.slice(0,6);
+    let long = longUnshort.slice(0,6);
+
+    console.log(lat, long);
 
     getWeatherAPI(lat, long).then(splitData).then(displayweather);
 }
