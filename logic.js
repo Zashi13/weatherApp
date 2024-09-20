@@ -60,6 +60,7 @@ function autofill(city){
 
 function displayweather(weatherCode){
     let main = document.getElementById("main");
+    console.log(main);
     while (main.firstChild) {
         main.removeChild(main.lastChild);
       }
@@ -149,6 +150,7 @@ function displayweather(weatherCode){
             main.className="rain";
             titleTextContent = "It's a little rainy today";
             audioSrc = "rain";
+            rain();
             break;
         case 81:
             main.className="rain";
@@ -335,9 +337,45 @@ function changeLocation(){
     let lat = latUnshort.slice(0,6);
     let long = longUnshort.slice(0,6);
 
-    console.log(lat, long);
-
     getWeatherAPI(lat, long).then(splitData).then(displayweather);
+}
+
+function rain(){
+
+/*----------Creating and appending all the child elements for the rain---------*/
+    const main = document.getElementById("main");
+    let backRow = document.createElement("div");
+    let frontRow = document.createElement("div");
+    backRow.classList.add("rain");
+    backRow.classList.add("front-row");
+    frontRow.classList.add("rain");
+    frontRow.classList.add("back-row");
+    main.appendChild(backRow);
+    main.appendChild(frontRow);
+
+    /*---RainJS--- stolen from Aaron Rickle on Codepen------*/
+      
+        var increment = 0;
+        var drops = "";
+        var backDrops = "";
+      
+        while (increment < 100) {
+          //couple random numbers to use for various randomizations
+          //random number between 98 and 1
+          var randoHundo = (Math.floor(Math.random() * (98 - 1 + 1) + 1));
+          //random number between 5 and 2
+          var randoFiver = (Math.floor(Math.random() * (5 - 2 + 1) + 2));
+          //increment
+          increment += randoFiver;
+          //add in a new raindrop with various randomizations to certain CSS properties
+          drops += '<div class="drop" style="left: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 120) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+          backDrops += '<div class="drop" style="right: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+        }
+      
+        $('.rain.front-row').append(drops);
+        $('.rain.back-row').append(backDrops);
+
+
 }
 
 getWeatherAPI(defaultLat, defaultLong).then(splitData).then(displayweather);
