@@ -68,7 +68,7 @@ function displayweather(weatherCode){
     main.appendChild(mainTitle);
     let bgm = document.getElementById("bgm");
     let audioSrc;
-    switch(weatherCode){
+    switch(80){
         case 0:
             main.className= "clear";
             titleTextContent = "Perfectly clear sky!"
