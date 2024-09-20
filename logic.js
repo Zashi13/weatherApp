@@ -69,7 +69,7 @@ function displayweather(weatherCode){
     main.appendChild(mainTitle);
     let bgm = document.getElementById("bgm");
     let audioSrc;
-    switch(80){
+    switch(95){
         case 0:
             main.className= "clear";
             titleTextContent = "Perfectly clear sky!"
@@ -150,23 +150,26 @@ function displayweather(weatherCode){
             main.className="rain";
             titleTextContent = "It's a little rainy today";
             audioSrc = "rain";
-            rain();
+            rain(20);
             break;
         case 81:
             main.className="rain";
             main.classList.add("rainModerate");
             titleTextContent = "It's raining";
             audioSrc = "rain";
+            rain(120);
             break;
         case 82:
             main.className="rain";
             main.classList.add("rainHeavy");
             titleTextContent = "It's raining A LOT!";
             audioSrc = "rain";
+            rain(400);
             break;
         case 95:
             main.className="thunderstorm";
             titleTextContent = "There is a Thunderstorm happening!";
+            rain(500);
             audioSrc = "thunder";
             break;
         case 96:
@@ -340,7 +343,7 @@ function changeLocation(){
     getWeatherAPI(lat, long).then(splitData).then(displayweather);
 }
 
-function rain(){
+function rain(rainAmount){
 
 /*----------Creating and appending all the child elements for the rain---------*/
     const main = document.getElementById("main");
@@ -356,6 +359,8 @@ function rain(){
     /*---RainJS--- stolen from Aaron Rickle on Codepen------*/
       
         var increment = 0;
+        let windowWidth = Number(screen.width / 10);
+          let toIncrement = Number(windowWidth / rainAmount);
         var drops = "";
         var backDrops = "";
       
@@ -366,7 +371,8 @@ function rain(){
           //random number between 5 and 2
           var randoFiver = (Math.floor(Math.random() * (5 - 2 + 1) + 2));
           //increment
-          increment += randoFiver;
+          increment += toIncrement;
+          console.log(increment);
           //add in a new raindrop with various randomizations to certain CSS properties
           drops += '<div class="drop" style="left: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 120) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
           backDrops += '<div class="drop" style="right: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
