@@ -255,6 +255,13 @@ input{
     background: white;
     border-radius: 50%;
   }
+
+  .hail{
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+  }
   
   @keyframes stem {
     0% {

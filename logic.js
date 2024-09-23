@@ -8,7 +8,7 @@ let currentTime = new Date().getHours();
 let pastSunTime;
 let defaultLat = 61.7445;
 let defaultLong = 17.0260;
-let snow = false;
+let particleType;
 
 function getWeatherAPI(lat, long){
     return new Promise(function(resolve, reject){
@@ -70,7 +70,7 @@ function displayweather(weatherCode){
     main.appendChild(mainTitle);
     let bgm = document.getElementById("bgm");
     let audioSrc;
-    switch(75){
+    switch(99){
         case 0:
             main.className= "clear";
             titleTextContent = "Perfectly clear sky!"
@@ -130,7 +130,7 @@ function displayweather(weatherCode){
         case 85:
            main.className="snow";
             titleTextContent = "At least there are some flakes"
-            snow = true;
+            particleType = "snow";
             rain(50);
             break;
         case 73:
@@ -145,7 +145,7 @@ function displayweather(weatherCode){
             main.className="snow";
             main.classList.add("snowHeavy");
             titleTextContent = "Look at all that snow!";
-            snow = true;
+            particleType = "snow";
             rain(250);
             break;
         case 77:
@@ -157,6 +157,7 @@ function displayweather(weatherCode){
             main.className="rainScene";
             titleTextContent = "It's a little rainy today";
             audioSrc = "rain";
+            particleType = "rain";
             rain(20);
             break;
         case 81:
@@ -164,6 +165,7 @@ function displayweather(weatherCode){
             main.classList.add("rainModerate");
             titleTextContent = "It's raining";
             audioSrc = "rain";
+            particleType = "rain";
             rain(120);
             break;
         case 82:
@@ -171,20 +173,24 @@ function displayweather(weatherCode){
             main.classList.add("rainHeavy");
             titleTextContent = "It's raining A LOT!";
             audioSrc = "rain";
+            particleType = "rain";
             rain(400);
             wind();
             break;
         case 95:
             main.className="thunderstorm";
             titleTextContent = "There is a Thunderstorm happening!";
+            particleType = "rain";
             rain(500);
             audioSrc = "thunder";
             break;
         case 96:
         case 99:
+            particleType = "hail";
             main.className="thunderstorm";
             main.classList.add("thunderstormHail");
             titleTextContent = "Take cover! It's hailing!";
+            rain(40);
             break;
         default:
             main.className="hell";
@@ -381,16 +387,23 @@ function rain(rainAmount){
           console.log(randoFiver);
           //increment
           increment += toIncrement;
-          if (snow != true){
+          switch (particleType){
+            case "rain":
           //add in a new raindrop with various randomizations to certain CSS properties
-          drops += '<div class="drop" style="left: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 120) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+    drops += '<div class="drop" style="left: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 120) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
           backDrops += '<div class="drop" style="right: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
-        }
-else{
+        break;
+            case "snow":
     drops += '<div class="drop" style="left: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 120) + '%; animation-delay:' + randoFiver +'.'+ randoHundo + 's; animation-duration:' + snowSpeed +'.'+ randoHundo + 's;"><div class="stem snowFlake" style="animation-delay:' + randoFiver +'.'+ randoHundo + 's; animation-duration:' + snowSpeed +'.'+ randoHundo + 's;"></div></div>';
           backDrops += '<div class="drop" style="right: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay:' + randoFiver +'.'+ randoHundo + 's; animation-duration:' + snowSpeed +'.'+ randoHundo + 's;"><div class="stem snowFlake" style="animation-delay:' + randoFiver +'.'+ randoHundo + 's; animation-duration:' + snowSpeed +'.'+ randoHundo + 's;"></div></div>';
-}
+        break;
+
+        case "hail":
+            drops += '<div class="drop" style="left: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 120) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem hail" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+            backDrops += '<div class="drop" style="right: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem hail" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+            break;
     }
+}
       
         $('.rain.front-row').append(drops);
         $('.rain.back-row').append(backDrops);
