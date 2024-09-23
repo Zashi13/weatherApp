@@ -8,6 +8,7 @@ let currentTime = new Date().getHours();
 let pastSunTime;
 let defaultLat = 61.7445;
 let defaultLong = 17.0260;
+let snow = false;
 
 function getWeatherAPI(lat, long){
     return new Promise(function(resolve, reject){
@@ -69,7 +70,7 @@ function displayweather(weatherCode){
     main.appendChild(mainTitle);
     let bgm = document.getElementById("bgm");
     let audioSrc;
-    switch(95){
+    switch(75){
         case 0:
             main.className= "clear";
             titleTextContent = "Perfectly clear sky!"
@@ -129,17 +130,23 @@ function displayweather(weatherCode){
         case 85:
            main.className="snow";
             titleTextContent = "At least there are some flakes"
+            snow = true;
+            rain(50);
             break;
         case 73:
             main.className="snow";
             main.classList.add("snowModerate");
             titleTextContent = "It's snowing";
+            snow = true;
+            rain(150);
             break;
         case 75:
         case 86:
             main.className="snow";
             main.classList.add("snowHeavy");
             titleTextContent = "Look at all that snow!";
+            snow = true;
+            rain(250);
             break;
         case 77:
             main.className="snow";
@@ -147,24 +154,25 @@ function displayweather(weatherCode){
             titleTextContent = "Why is the snow so weird?";
             break;
         case 80:
-            main.className="rain";
+            main.className="rainScene";
             titleTextContent = "It's a little rainy today";
             audioSrc = "rain";
             rain(20);
             break;
         case 81:
-            main.className="rain";
+            main.className="rainScene";
             main.classList.add("rainModerate");
             titleTextContent = "It's raining";
             audioSrc = "rain";
             rain(120);
             break;
         case 82:
-            main.className="rain";
+            main.className="rainScene";
             main.classList.add("rainHeavy");
             titleTextContent = "It's raining A LOT!";
             audioSrc = "rain";
             rain(400);
+            wind();
             break;
         case 95:
             main.className="thunderstorm";
@@ -344,7 +352,6 @@ function changeLocation(){
 }
 
 function rain(rainAmount){
-
 /*----------Creating and appending all the child elements for the rain---------*/
     const main = document.getElementById("main");
     let backRow = document.createElement("div");
@@ -370,18 +377,29 @@ function rain(rainAmount){
           var randoHundo = (Math.floor(Math.random() * (98 - 1 + 1) + 1));
           //random number between 5 and 2
           var randoFiver = (Math.floor(Math.random() * (5 - 2 + 1) + 2));
+          var snowSpeed = (Math.floor(Math.random() * (5 - 2 + 1) + 3));
+          console.log(randoFiver);
           //increment
           increment += toIncrement;
-          console.log(increment);
+          if (snow != true){
           //add in a new raindrop with various randomizations to certain CSS properties
-          drops += '<div class="drop" style="left: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 120) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
-          backDrops += '<div class="drop" style="right: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+          drops += '<div class="drop" style="left: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 120) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+          backDrops += '<div class="drop" style="right: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
         }
+else{
+    drops += '<div class="drop" style="left: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 120) + '%; animation-delay:' + randoFiver +'.'+ randoHundo + 's; animation-duration:' + snowSpeed +'.'+ randoHundo + 's;"><div class="stem snowFlake" style="animation-delay:' + randoFiver +'.'+ randoHundo + 's; animation-duration:' + snowSpeed +'.'+ randoHundo + 's;"></div></div>';
+          backDrops += '<div class="drop" style="right: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay:' + randoFiver +'.'+ randoHundo + 's; animation-duration:' + snowSpeed +'.'+ randoHundo + 's;"><div class="stem snowFlake" style="animation-delay:' + randoFiver +'.'+ randoHundo + 's; animation-duration:' + snowSpeed +'.'+ randoHundo + 's;"></div></div>';
+}
+    }
       
         $('.rain.front-row').append(drops);
         $('.rain.back-row').append(backDrops);
-
-
 }
 
+function wind(windAmount) {
+   let allDrops = document.querySelectorAll(".stem");
+   for(i = 1; i < allDrops.length; i++){
+   allDrops[i].classList.add("wind");
+  }
+}
 getWeatherAPI(defaultLat, defaultLong).then(splitData).then(displayweather);
