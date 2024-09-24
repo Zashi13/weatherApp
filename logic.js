@@ -61,7 +61,6 @@ function autofill(city){
 
 function displayweather(weatherCode){
     let main = document.getElementById("main");
-    console.log(main);
     while (main.firstChild) {
         main.removeChild(main.lastChild);
       }
@@ -70,7 +69,8 @@ function displayweather(weatherCode){
     main.appendChild(mainTitle);
     let bgm = document.getElementById("bgm");
     let audioSrc;
-    switch(99){
+    console.log(weatherCode + " in displayWeather function");
+    switch(weatherCode){
         case 0:
             main.className= "clear";
             titleTextContent = "Perfectly clear sky!"
@@ -195,6 +195,7 @@ function displayweather(weatherCode){
         default:
             main.className="hell";
             titleTextContent = "Could not find weather - welcome to Hell!"
+            break;
     }
 
     mainTitle.innerText = titleTextContent;
@@ -414,5 +415,11 @@ function wind(windAmount) {
    for(i = 1; i < allDrops.length; i++){
    allDrops[i].classList.add("wind");
   }
+}
+
+function changeWeather(){
+let selectedCode = document.getElementById("weatherSelect").value;
+console.log(selectedCode + " in changeWeather");
+displayweather(Number(selectedCode));
 }
 getWeatherAPI(defaultLat, defaultLong).then(splitData).then(displayweather);
